@@ -1,0 +1,145 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <title>WYD? - Wh&ouml;'s Your Daddy?</title>
+    
+    <link rel="shortcut icon" href="favicon.gif">
+    
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" media="screen" />
+    <link href="css/wyd.css" rel="stylesheet">
+    
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+    
+<!-- Subhead
+================================================== -->
+<header class="jumbotron subhead" id="overview">
+  <div class="container">
+    <!--img src="img/wyd-logo.svg" style="height: 128px;" /-->
+    <embed id="player" src="img/wyd-player.svg" />
+  </div>
+</header>
+
+  <div id="main" class="container">
+
+    <!-- Navigation
+    ================================================== -->
+    <div class="row">
+      <div class="span3 bs-docs-sidebar" ng-controller="SectionsCtrl">
+        <ul class="nav nav-list bs-docs-sidenav">
+          <li ng-repeat="section in sections"><a href="#{{section.id}}"><i class="icon-chevron-right"></i> {{section.navTitle}}</a></li>
+        </ul>
+      </div>
+      
+      <div class="span9" ng-controller="SectionsCtrl">
+
+        <!-- Main content
+        ================================================== -->
+        <section ng-repeat="section in sections" id="{{section.id}}">
+          <div class="page-header">
+            <h1>{{section.title}}</h1>
+            
+            {{section.content}}
+            
+            <div class="news">
+              <div class="news-item" ng-repeat="newsItem in section.news">
+                <h2>{{newsItem.title}}</h2>
+                <div class="news-item-date">{{newsItem.date | date}}</div>
+                <div class="news-item-content">{{newsItem.content}}</div>
+              </div>
+            </div>
+            
+            <div class="audio">
+              <div class="audio-album" ng-repeat="album in section.albums">
+                <h2>{{album}}</h2>
+                <ul>
+                  <li ng-repeat="track in section.tracks | filter: {album: album}">{{track.title}}</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="videos">
+              <ul>
+                <li ng-repeat="video in section.videos"><a href="#">{{video.title}}</a></li>
+              </ul>
+            </div>
+            
+            <div class="members">
+              <div class="row-fluid">
+                <div class="span4" ng-repeat="member in section.members">
+                  <div class="member" ng-class="{'last':$last, 'first':$first}">
+                    <h2>{{member.name}} <span class="member-instrs">
+                        // <span ng-repeat="instr in member.instruments">{{instr}}<span ng-show="!$last">, </span></span>
+                      </span>
+                    </h2>
+                    
+                    <div class="member-bio">{{member.bio}}</div>
+                    
+                    <div class="member-gear-cat" ng-repeat="(cat, gears) in member.gears">
+                      <h3>{{cat}}</h3>
+                      <ul>
+                        <li ng-repeat="gear in gears">{{gear}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  
+    <!-- Footer
+    ================================================== -->
+    <footer class="footer">
+      <div class="container">
+        <ul class="footer-links">
+          <li><a href="frames/copyright.html" class="fancybox fancybox.ajax">&copy;Wh&ouml;'s Your Daddy?</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="frames/contact.html" class="fancybox fancybox.ajax">cont@ct</a></li>
+          <li class="muted">&middot;</li>
+          <li><a href="frames/about.html" class="fancybox fancybox.ajax">about</a></li>
+        </ul>
+      </div>
+    </footer>
+    
+    <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap-affix.js"></script>
+    <script type="text/javascript" src="lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="js/jed.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/wyd-angular.js"></script>
+    <script type="text/javascript" src="js/wyd-fancybox.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $(".fancybox").fancybox();
+        $(".bs-docs-sidenav").affix ();
+      });
+      
+      var player = {
+        play: function() {
+          console.log('play');
+        }
+        ,pause: function() {
+          console.log('pause');
+        }
+        ,back: function() {
+          console.log('back');
+        }
+        ,next: function() {
+          console.log('next');
+        }
+        ,volume: function() {
+          console.log('volume');
+        }
+      }
+    </script>
+  
+  </body>
+</html>
